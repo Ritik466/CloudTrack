@@ -1,0 +1,19 @@
+{
+  "name": "simple-demo",
+  "version": "1.0.0",
+  "description": "Simple Demo with frontend and backend",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "install:all": "npm run install:frontend && npm run install:backend",
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd backend && npm install",
+    "db:setup": "cd backend && node reset-db.js",
+    "db:update": "cd backend && node apply-schema-update.js",
+    "test:db": "cd backend && node -e \"const pool = require('./db'); pool.query('SELECT NOW()').then(r => console.log('✅ Database connected:', r.rows[0])).finally(() => pool.end())\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
