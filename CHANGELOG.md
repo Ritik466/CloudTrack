@@ -1,8 +1,8 @@
-# Changelog
+# My Project Changelog
 
-## [1.0.0] - 2026-03-11
+## Version 1.0.0 - March 2026
 
-### Added
+### What I built
 - Basic assignment management system
 - Student login and submission
 - Teacher assignment creation
@@ -12,23 +12,25 @@
 - User authentication with passwords
 - Database integration with PostgreSQL
 
-### Known Issues
-- File size limit is 10MB (might be too small for some use cases)
-- No mobile optimization yet
-- Error messages could be better
+### Some issues I know about
+- File size is limited to 10MB (might need to increase later)
+- Mobile could be better
+- Error messages could be more helpful
+- No email notifications yet
 
-### Tech Stuff
-- React for frontend
-- Node.js for backend
-- PostgreSQL for database
+### Technical details
+- React for the frontend
+- Node.js + Express for the backend
+- PostgreSQL for the database
 - bcrypt for password hashing
+- Multer for file uploads
 
 ---
 
-## Future Ideas
+## Future ideas
 - Maybe add email notifications
-- Could use better file storage (like S3)
+- Could use cloud storage instead of local files
 - Add more assignment types
 - Better mobile support
 
-*That's about it for now*
+*That's pretty much it for now*

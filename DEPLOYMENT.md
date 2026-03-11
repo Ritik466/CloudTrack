@@ -1,33 +1,33 @@
-# GitHub Deployment Guide
+# How to deploy my project
 
-## 🚀 Deploy to GitHub
+## Deploy to GitHub
 
-### Step 1: Initialize Git Repository
+### Step 1: Git setup
 ```bash
 cd simple-demo
 git init
 git add .
-git commit -m "Initial commit: CloudTrack assignment management system"
+git commit -m "First version of my assignment app"
 ```
 
-### Step 2: Create GitHub Repository
+### Step 2: Create GitHub repository
 1. Go to https://github.com
 2. Click "New repository"
-3. Name it: `cloudtrack-assignment-system`
-4. Description: "A simple web app for schools to manage assignments and student submissions"
+3. Name it: `CloudTrack`
+4. Description: `My assignment management system for schools`
 5. Make it Public
-6. Don't initialize with README (we already have one)
+6. Don't initialize with README
 
 ### Step 3: Push to GitHub
 ```bash
-git remote add origin https://github.com/yourusername/cloudtrack-assignment-system.git
+git remote add origin https://github.com/Ritik466/CloudTrack.git
 git branch -M main
 git push -u origin main
 ```
 
-### Step 4: Deploy to Netlify (Frontend)
+## Deploy the frontend
 
-#### Option A: Netlify (Recommended)
+### Option 1: Netlify (easiest)
 1. Go to https://netlify.com
 2. Sign up/login with GitHub
 3. Click "New site from Git"
@@ -38,7 +38,7 @@ git push -u origin main
    - Publish directory: `frontend/dist`
 6. Click "Deploy site"
 
-#### Option B: Vercel
+### Option 2: Vercel
 1. Go to https://vercel.com
 2. Sign up/login with GitHub
 3. Click "New Project"
@@ -47,9 +47,9 @@ git push -u origin main
 6. Root directory: `frontend`
 7. Click "Deploy"
 
-### Step 5: Deploy Backend (Optional)
+## Deploy the backend
 
-#### Option A: Railway
+### Option 1: Railway
 1. Go to https://railway.app
 2. Sign up/login with GitHub
 3. Click "New Project"
@@ -63,65 +63,46 @@ git push -u origin main
    - `DB_PASSWORD`: Your database password
 7. Click "Deploy"
 
-#### Option B: Heroku
+### Option 2: Heroku
 1. Go to https://heroku.com
 2. Sign up/login
 3. Click "New App"
 4. Connect GitHub repository
 5. Set root directory: `backend`
-6. Add database addon (PostgreSQL)
+6. Add database addon
 7. Configure environment variables
 8. Deploy
 
-### Step 6: Update Frontend API URL
+## After deployment
 
-After backend deployment, update the API URL in `frontend/src/api.js`:
+1. Update API URL in `frontend/src/api.js`
+2. Test everything works
+3. Share your live app!
 
-```javascript
-const API_BASE = 'https://your-backend-url.railway.app' // or your deployed URL
-```
+## Important notes
 
-### Step 7: Test Deployment
-
-1. Visit your frontend URL
-2. Try logging in with demo accounts
-3. Test assignment creation and submission
-4. Verify file uploads work
-
-## 🔧 Important Notes
-
-### Environment Variables
-Make sure to set these in your hosting platform:
+### Environment variables
+Make sure to set these in your hosting:
 - `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`
 
-### File Uploads
-For production, you might want to use cloud storage instead of local files:
-- AWS S3
-- Cloudinary
-- Firebase Storage
+### File uploads
+For production, you might want cloud storage instead of local files.
 
 ### Database
-For production database:
+For production database, consider:
 - Railway PostgreSQL
 - Heroku Postgres
 - Supabase
-- PlanetScale
 
-## 📋 Pre-Deployment Checklist
+## Checklist before deploying
 
-- [ ] Update API_BASE in `frontend/src/api.js`
+- [ ] Update API_BASE in frontend
 - [ ] Set environment variables
 - [ ] Test database connection
-- [ ] Verify file upload permissions
-- [ ] Check CORS settings
+- [ ] Check file upload permissions
 - [ ] Test all user roles
-
-## 🎯 Live Demo
-
-Once deployed, your app will be available at:
-- Frontend: https://your-app-name.netlify.app
-- Backend API: https://your-app-name.railway.app
+- [ ] Make sure CORS is working
 
 ---
 
-**Good luck with your deployment!** 🚀
+Good luck with deployment!
