@@ -1,7 +1,8 @@
 {
-  "name": "simple-demo",
+  "name": "cloudtrack-assignment-system",
   "version": "1.0.0",
-  "description": "Simple Demo with frontend and backend",
+  "description": "A web app for managing school assignments and student submissions",
+  "main": "index.js",
   "scripts": {
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:frontend": "cd frontend && npm run dev",

@@ -1,33 +1,41 @@
-# CloudTrack - Assignment Management System
+# CloudTrack - Assignment Management App
 
-A simple web app for schools to manage assignments and student submissions.
+A web app I built for managing school assignments and student submissions.
+
+## What this does
+
+Basically it's a simple system where:
+- Teachers can create assignments
+- Students can submit work (text + files)
+- Teachers can review and grade stuff
+- Admins can see everything
 
 ## Quick Start
 
 ### What you need
-- Node.js 16+
-- PostgreSQL 12+
+- Node.js (probably 16+ should work)
+- PostgreSQL
 - npm
 
-### Setup
+### Setup steps
 
 ```bash
-# Install everything
+# Install dependencies
 npm run install:all
 
-# Database setup
+# Database stuff
 cd backend
 cp .env.example .env
-# Edit .env with your database info
+# Put your database details in .env
 npm run db:setup
 
-# Start the app
+# Start it up
 npm run dev
 ```
 
-Open http://localhost:5174 for the frontend and http://localhost:3001 for the backend API.
+Go to http://localhost:5174 for the app and http://localhost:3001 for the API.
 
-### Login Accounts
+### Login details
 
 | Role | Email | Password |
 |------|-------|----------|
@@ -36,68 +44,71 @@ Open http://localhost:5174 for the frontend and http://localhost:3001 for the ba
 | Student | aryan.thapa@student.edu | student123 |
 | Admin | admin@cloudtrack.edu | admin123 |
 
-## What it does
+## How it works
 
-### Students can:
-- See all their assignments
-- Submit homework with text or files
-- Check if their work was reviewed
-- See grades and feedback
+### Students
+- See their assignments
+- Submit homework (write stuff or attach files)
+- Check if teacher reviewed it
+- See grades
 
-### Teachers can:
+### Teachers  
 - Create new assignments
-- Review student work
-- Download submitted files
+- Set due dates
+- Review what students submitted
+- Download files if they attached any
 - Give grades and feedback
 
-### Admins can:
+### Admins
 - See overview of everything
-- Check system stats
+- Check stats
 
-## Tech Stuff
+## Tech stuff I used
 
-- **Frontend**: React + Vite
-- **Backend**: Node.js + Express + PostgreSQL
-- **Database**: PostgreSQL with proper tables
-- **Files**: Secure upload system
+- Frontend: React with Vite (pretty fast)
+- Backend: Node.js + Express (simple but works)
+- Database: PostgreSQL (good for this kind of data)
+- File uploads: Multer (handles the file stuff)
+- Auth: bcrypt for passwords (secure)
 
-## Project Structure
+## Project structure
 
 ```
 simple-demo/
-├── backend/          # Server stuff
+├── backend/          # Server code
 │   ├── server.js     # Main server file
 │   ├── db.js         # Database connection
-│   └── uploads/      # File storage
+│   └── uploads/      # Where files go
 └── frontend/         # React app
     └── src/
-        ├── pages/     # React components
+        ├── pages/     # React pages
         └── api.js     # API calls
 ```
 
-## Setup Details
+## Database setup
 
-Create `backend/.env`:
+Create a `.env` file in the backend folder:
+
 ```env
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=simple_demo
 DB_USER=postgres
-DB_PASSWORD=your_password
+DB_PASSWORD=your_password_here
 ```
 
-## More Info
+## Features
 
-Check out [DOCUMENTATION.md](./DOCUMENTATION.md) for detailed info about the API and how everything works.
+- Login system with passwords (hashed properly)
+- File uploads - students can submit documents/images
+- Status tracking - shows if assignments are overdue, submitted, reviewed
+- Different views for different user types
+- Everything saved in database (won't disappear if server restarts)
 
-## Main Features
+## More info
 
-- **Secure Login**: Password-based with proper hashing
-- **File Uploads**: Students can submit files (max 10MB)
-- **Status Tracking**: See if assignments are submitted/reviewed/overdue
-- **Different Roles**: Separate interfaces for teachers, students, and admins
-- **Real Database**: PostgreSQL for persistent data
+Check out [DOCUMENTATION.md](./DOCUMENTATION.md) if you want the detailed technical stuff.
 
 ---
 
-*A simple but functional assignment management system for schools*
+*A simple assignment management system that actually works*
