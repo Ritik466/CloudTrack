@@ -2,6 +2,8 @@
 
 So I built this web app for managing school assignments. It lets teachers create assignments, students submit work, and admins see everything.
 
+![Teacher Dashboard](assets\screenshots\Teacher-Dashboard.png)
+
 ## How to run it
 
 ### What you need first
@@ -100,5 +102,26 @@ Check out [DOCUMENTATION.md](./DOCUMENTATION.md) if you want detailed technical 
 - **Different roles**: Separate pages for teachers, students, and admins
 - **Real database**: PostgreSQL so data doesn't disappear
 
----
+## Screenshots
 
+### Login Page
+
+![Login Page](assets\screenshots\Login-Page.png)
+
+### Student Dashboard
+
+![Student Dashboard](assets\screenshots\Student-Dashboard.png)
+
+### Submit Assignment
+
+![Submit Assignment](assets\screenshots\Assignement-Submit-message.png)
+
+### Teacher Dashboard
+
+![Teacher Dashboard](assets\screenshots\Teacher-Dashboard-Assignment.png)
+
+### Cloud Architecture
+
+![Cloud Architecture](assets\screenshots\CloudTrack-Architecture.png)
+
+---
