@@ -102,4 +102,3 @@ Check out [DOCUMENTATION.md](./DOCUMENTATION.md) if you want detailed technical 
 
 ---
 
-*A working assignment management system that I actually built*
