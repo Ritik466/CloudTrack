@@ -2,7 +2,7 @@
 
 So I built this web app for managing school assignments. It lets teachers create assignments, students submit work, and admins see everything.
 
-![Teacher Dashboard](assets\screenshots\Teacher-Dashboard.png)
+![Teacher Dashboard](assets/screenshots/Teacher-Dashboard.png)
 
 ## How to run it
 
@@ -106,22 +106,22 @@ Check out [DOCUMENTATION.md](./DOCUMENTATION.md) if you want detailed technical 
 
 ### Login Page
 
-![Login Page](assets\screenshots\Login-Page.png)
+![Login Page](assets/screenshots/Login-Page.png)
 
 ### Student Dashboard
 
-![Student Dashboard](assets\screenshots\Student-Dashboard.png)
+![Student Dashboard](assets/screenshots/Student-Dashboard.png)
 
 ### Submit Assignment
 
-![Submit Assignment](assets\screenshots\Assignement-Submit-message.png)
+![Submit Assignment](assets/screenshots/Assignement-Submit-message.png)
 
 ### Teacher Dashboard
 
-![Teacher Dashboard](assets\screenshots\Teacher-Dashboard-Assignment.png)
+![Teacher Dashboard](assets/screenshots/Teacher-Dashboard-Assignment.png)
 
 ### Cloud Architecture
 
-![Cloud Architecture](assets\screenshots\CloudTrack-Architecture.png)
+![Cloud Architecture](assets/screenshots/CloudTrack-Architecture.png)
 
 ---
