@@ -1,108 +1,78 @@
-# How to deploy my project
+# How to Deploy CloudTrack
 
-## Deploy to GitHub
+## Overview
 
-### Step 1: Git setup
+CloudTrack is prepared for AWS-oriented deployment using:
+- Amazon EC2 for hosting
+- Amazon ECR for Docker image storage
+- Amazon VPC for networking
+- Amazon S3 for optional file storage
+- Terraform for infrastructure provisioning
+- Docker Compose for container orchestration on EC2
+
+## Deployment Flow
+
+1. Provision infrastructure from the `Infra/` directory with Terraform
+2. Build backend and frontend Docker images
+3. Push images to Amazon ECR
+4. SSH into the EC2 instance
+5. Run Docker Compose on EC2
+6. Initialize the database
+7. Test login, assignments, submissions, and downloads
+
+## GitHub Setup
+
 ```bash
-cd simple-demo
 git init
 git add .
-git commit -m "First version of my assignment app"
-```
-
-### Step 2: Create GitHub repository
-1. Go to https://github.com
-2. Click "New repository"
-3. Name it: `CloudTrack`
-4. Description: `My assignment management system for schools`
-5. Make it Public
-6. Don't initialize with README
-
-### Step 3: Push to GitHub
-```bash
+git commit -m "Initial CloudTrack deployment setup"
 git remote add origin https://github.com/Ritik466/CloudTrack.git
 git branch -M main
 git push -u origin main
 ```
 
-## Deploy the frontend
+## AWS Deployment Files
 
-### Option 1: Netlify (easiest)
-1. Go to https://netlify.com
-2. Sign up/login with GitHub
-3. Click "New site from Git"
-4. Select your repository
-5. Build settings:
-   - Base directory: `frontend`
-   - Build command: `npm run build`
-   - Publish directory: `frontend/dist`
-6. Click "Deploy site"
+- `docker-compose.ec2.yml`: EC2 deployment with local PostgreSQL container
+- `docker-compose.rds.yml`: EC2 deployment with external PostgreSQL / RDS
+- `Infra/`: Terraform files for AWS resources
 
-### Option 2: Vercel
-1. Go to https://vercel.com
-2. Sign up/login with GitHub
-3. Click "New Project"
-4. Select your repository
-5. Framework: `Vite`
-6. Root directory: `frontend`
-7. Click "Deploy"
+## Required Environment Variables
 
-## Deploy the backend
+Backend / deployment variables:
+- `DB_HOST`
+- `DB_PORT`
+- `DB_NAME`
+- `DB_USER`
+- `DB_PASSWORD`
+- `BACKEND_IMAGE`
+- `FRONTEND_IMAGE`
+- `AWS_REGION`
+- `S3_BUCKET` when S3 storage is enabled
 
-### Option 1: Railway
-1. Go to https://railway.app
-2. Sign up/login with GitHub
-3. Click "New Project"
-4. Select your repository
-5. Set root directory: `backend`
-6. Environment variables:
-   - `DB_HOST`: Your database host
-   - `DB_PORT`: 5432
-   - `DB_NAME`: Your database name
-   - `DB_USER`: Your database user
-   - `DB_PASSWORD`: Your database password
-7. Click "Deploy"
+## Post-Deployment Checklist
 
-### Option 2: Heroku
-1. Go to https://heroku.com
-2. Sign up/login
-3. Click "New App"
-4. Connect GitHub repository
-5. Set root directory: `backend`
-6. Add database addon
-7. Configure environment variables
-8. Deploy
+- Update frontend API base URL if the EC2 public IP changes
+- Confirm Docker containers are running
+- Verify database connectivity
+- Test login for all roles
+- Test assignment creation
+- Test student submission
+- Test teacher review and file download
+- Test S3 upload flow if enabled
 
-## After deployment
+## Cost Control Notes
 
-1. Update API URL in `frontend/src/api.js`
-2. Test everything works
-3. Share your live app!
+- Stop EC2 when not in use
+- Avoid unnecessary RDS, load balancer, or NAT gateway usage
+- Remove unused Docker images from ECR if needed
+- Keep cloud resources minimal for demo use
 
-## Important notes
+## Production Notes
 
-### Environment variables
-Make sure to set these in your hosting:
-- `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`
+- Use HTTPS in production
+- Use stronger session management
+- Add monitoring and backups if the system becomes long-running
+- Use S3 lifecycle rules if file storage grows
 
-### File uploads
-For production, you might want cloud storage instead of local files.
-
-### Database
-For production database, consider:
-- Railway PostgreSQL
-- Heroku Postgres
-- Supabase
-
-## Checklist before deploying
-
-- [ ] Update API_BASE in frontend
-- [ ] Set environment variables
-- [ ] Test database connection
-- [ ] Check file upload permissions
-- [ ] Test all user roles
-- [ ] Make sure CORS is working
-
----
-
-Good luck with deployment!
+Good luck with deployment.

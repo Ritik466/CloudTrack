@@ -114,6 +114,10 @@ export default function Student() {
       const updated = await store.getSubmissionByAssignmentAndStudent(selectedAssignmentId, user.id)
       console.log('Updated submission:', updated)
       setExisting(updated)
+      setSubmissionsMap((current) => ({
+        ...current,
+        [selectedAssignmentId]: updated
+      }))
       // Reset form
       setText('')
       setSelectedFile(null)

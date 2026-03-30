@@ -4,17 +4,24 @@ const bcrypt = require('bcrypt')
 const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
+const { Readable } = require('stream')
+const { S3Client, PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
 const pool = require('./db')
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 
+const s3Bucket = process.env.S3_BUCKET
+const s3Region = process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION
+const useS3Storage = Boolean(s3Bucket && s3Region)
+const s3Client = useS3Storage ? new S3Client({ region: s3Region }) : null
+
 // Serve uploaded files - needed for file downloads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // File upload configuration
-const storage = multer.diskStorage({
+const diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadDir = path.join(__dirname, 'uploads')
     // Create uploads directory if it doesn't exist
@@ -31,7 +38,7 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({
-  storage: storage,
+  storage: useS3Storage ? multer.memoryStorage() : diskStorage,
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit - should be enough for most files
   fileFilter: (req, file, cb) => {
     // Accept common file types for educational content
@@ -46,6 +53,32 @@ const upload = multer({
     }
   }
 })
+
+async function uploadFile(file) {
+  if (!file) return null
+
+  if (useS3Storage) {
+    const objectKey = `submissions/${Date.now()}-${Math.round(Math.random() * 1E9)}-${file.originalname}`
+    await s3Client.send(new PutObjectCommand({
+      Bucket: s3Bucket,
+      Key: objectKey,
+      Body: file.buffer,
+      ContentType: file.mimetype,
+    }))
+
+    return {
+      fileName: file.originalname,
+      filePath: objectKey,
+      fileSize: file.size
+    }
+  }
+
+  return {
+    fileName: file.originalname,
+    filePath: file.filename,
+    fileSize: file.size
+  }
+}
 
 // Routes
 app.post('/api/login', async (req, res) => {
@@ -204,11 +237,7 @@ app.post('/api/submissions', upload.single('file'), async (req, res) => {
     )
 
     let submission
-    const fileData = req.file ? {
-      fileName: req.file.originalname,
-      filePath: req.file.filename,
-      fileSize: req.file.size
-    } : null
+    const fileData = req.file ? await uploadFile(req.file) : null
 
     if (existingResult.rows.length > 0) {
       // Update existing submission
@@ -291,6 +320,22 @@ app.get('/api/submissions/:id/download', async (req, res) => {
     }
 
     const { file_name, file_path } = result.rows[0]
+    if (useS3Storage) {
+      const object = await s3Client.send(new GetObjectCommand({
+        Bucket: s3Bucket,
+        Key: file_path
+      }))
+
+      res.setHeader('Content-Disposition', `attachment; filename="${file_name}"`)
+
+      if (object.ContentType) {
+        res.setHeader('Content-Type', object.ContentType)
+      }
+
+      Readable.from(object.Body).pipe(res)
+      return
+    }
+
     const filePath = path.join(__dirname, 'uploads', file_path)
 
     if (!fs.existsSync(filePath)) {
@@ -304,7 +349,7 @@ app.get('/api/submissions/:id/download', async (req, res) => {
   }
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Simple Demo backend running on http://localhost:${PORT}`)
 })

@@ -9,10 +9,10 @@ const schema = fs.readFileSync(schemaPath, 'utf8');
 // First connect to postgres database
 const pool = new Pool({
   host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT || 5432,
+  port: process.env.DB_PORT || 5433,
   database: 'postgres',
   user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'Asha123',
+  password: process.env.DB_PASSWORD || 'Ashajoshi123',
 });
 
 async function resetDatabase() {
@@ -44,10 +44,10 @@ async function resetDatabase() {
   // Now connect to our database and run schema
   const appPool = new Pool({
     host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || 5432,
+    port: process.env.DB_PORT || 5433,
     database: 'simple_demo',
     user: process.env.DB_USER || 'postgres',
-    password: process.env.DB_PASSWORD || 'Asha123',
+    password: process.env.DB_PASSWORD || 'Ashajoshi123',
   });
 
   try {

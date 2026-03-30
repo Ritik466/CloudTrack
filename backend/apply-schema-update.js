@@ -8,10 +8,10 @@ const schema = fs.readFileSync(schemaPath, 'utf8');
 
 const pool = new Pool({
   host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT || 5432,
+  port: process.env.DB_PORT || 5433,
   database: process.env.DB_NAME || 'simple_demo',
   user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'Asha123',
+  password: process.env.DB_PASSWORD || 'Ashajoshi123',
 });
 
 async function updateSchema() {

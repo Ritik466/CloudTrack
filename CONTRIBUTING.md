@@ -1,33 +1,35 @@
-# How to contribute to my project
+# How to Contribute to CloudTrack
 
-Thanks for wanting to help! Here's how you can contribute:
+Thanks for wanting to contribute.
 
-## Getting started
+## Getting Started
 
 1. Fork the repository
-2. Create a new branch: `git checkout -b your-feature-name`
+2. Create a branch:
+   `git checkout -b your-feature-name`
 3. Make your changes
-4. Commit your changes: `git commit -m 'Add your feature'`
-5. Push to your branch: `git push origin your-feature-name`
+4. Commit:
+   `git commit -m "Add your feature"`
+5. Push your branch
 6. Open a pull request
 
-## Bug reports
+## Bug Reports
 
-When you find bugs, please tell me:
-- What happened
-- What you expected to happen
-- How to make it happen again
-- Your browser and OS
-- Screenshots if you can
+When reporting a bug, include:
+- what happened
+- what you expected
+- reproduction steps
+- browser and OS
+- screenshots if possible
 
-## Feature requests
+## Feature Requests
 
-I'm open to suggestions! Just:
-- Use clear titles
-- Explain why it would be useful
-- Think about if it fits with what I'm trying to do
+Please:
+- use a clear title
+- explain why the feature is useful
+- keep the suggestion aligned with the project goals
 
-## Development setup
+## Development Setup
 
 ```bash
 git clone https://github.com/Ritik466/CloudTrack.git
@@ -37,30 +39,29 @@ npm run db:setup
 npm run dev
 ```
 
-## Code style
+## Code Style
 
-I tried to keep it simple and readable. Please:
-- Add comments where things are confusing
-- Follow the patterns I already used
-- Test your changes before submitting
-- Keep the file structure similar
+- keep code readable
+- follow existing patterns
+- add comments only where they help understanding
+- test changes before submitting
 
-## Project structure
+## Project Structure
 
-```
-├── backend/    # Server code
-├── frontend/   # React app
-├── docs/       # Documentation
-└── scripts/    # Utility scripts
+```text
+backend/              # Express API and database scripts
+frontend/             # React application
+Infra/                # Terraform infrastructure files
+docker-compose.yml    # Local Docker setup
+docker-compose.ec2.yml
+docker-compose.rds.yml
 ```
 
 ## Guidelines
 
-- Be nice and helpful in your suggestions
-- Focus on making things better for users
-- Help others learn
-- Keep things simple
+- be respectful
+- keep suggestions practical
+- focus on user-facing improvements
+- prefer simple solutions when possible
 
----
-
-Happy coding!
+Happy coding.

@@ -1,4 +1,29 @@
-const API_BASE = 'http://localhost:3001/api'
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3001/api'
+
+async function readJson(res) {
+  const data = await res.json()
+
+  if (!res.ok) {
+    throw new Error(data.error || 'Request failed')
+  }
+
+  return data
+}
+
+function normalizeSubmission(submission) {
+  if (!submission) return submission
+
+  return {
+    ...submission,
+    assignmentId: submission.assignment_id,
+    studentId: submission.student_id,
+    studentName: submission.student_name,
+    submittedAt: submission.submitted_at,
+    fileName: submission.file_name,
+    filePath: submission.file_path,
+    fileSize: submission.file_size
+  }
+}
 
 // Simple API client for the Simple Demo backend
 export const api = {
@@ -15,12 +40,12 @@ export const api = {
 
   async getUsers() {
     const res = await fetch(`${API_BASE}/users`)
-    return res.json()
+    return readJson(res)
   },
 
   async getAssignments() {
     const res = await fetch(`${API_BASE}/assignments`)
-    return res.json()
+    return readJson(res)
   },
 
   async createAssignment({ title, description, dueDate, teacherId }) {
@@ -29,27 +54,27 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, description, dueDate, teacherId })
     })
-    return res.json()
+    return readJson(res)
   },
 
   async deleteAssignment(id) {
     const res = await fetch(`${API_BASE}/assignments/${id}`, { method: 'DELETE' })
-    return res.json()
+    return readJson(res)
   },
 
   async getSubmissions() {
     const res = await fetch(`${API_BASE}/submissions`)
-    return res.json()
+    return (await readJson(res)).map(normalizeSubmission)
   },
 
   async getSubmissionsByAssignment(assignmentId) {
     const res = await fetch(`${API_BASE}/submissions/assignment/${assignmentId}`)
-    return res.json()
+    return (await readJson(res)).map(normalizeSubmission)
   },
 
   async getSubmissionByAssignmentAndStudent(assignmentId, studentId) {
     const res = await fetch(`${API_BASE}/submissions/assignment/${assignmentId}/student/${studentId}`)
-    return res.json()
+    return normalizeSubmission(await readJson(res))
   },
 
   async upsertSubmission({ assignmentId, studentId, studentName, text, file }) {
@@ -66,7 +91,7 @@ export const api = {
       method: 'POST',
       body: formData // Don't set Content-Type header, let browser set it with boundary
     })
-    return res.json()
+    return normalizeSubmission(await readJson(res))
   },
 
   async downloadFile(submissionId) {
@@ -86,11 +111,11 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ grade, feedback })
     })
-    return res.json()
+    return normalizeSubmission(await readJson(res))
   },
 
   async reset() {
     const res = await fetch(`${API_BASE}/data/reset`, { method: 'DELETE' })
-    return res.json()
+    return readJson(res)
   }
 }

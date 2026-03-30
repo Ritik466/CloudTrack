@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: cloudtrack_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: simple_demo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    image: ${BACKEND_IMAGE}
+    container_name: cloudtrack_backend
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: simple_demo
+      DB_USER: postgres
+      DB_PASSWORD: ${DB_PASSWORD}
+      PORT: 3001
+      AWS_REGION: ${AWS_REGION:-ap-south-1}
+      S3_BUCKET: ${S3_BUCKET:-}
+    ports:
+      - "3001:3001"
+
+  frontend:
+    image: ${FRONTEND_IMAGE}
+    container_name: cloudtrack_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  postgres_data:

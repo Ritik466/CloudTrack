@@ -30,6 +30,9 @@ CREATE TABLE IF NOT EXISTS submissions (
     status VARCHAR(20) NOT NULL DEFAULT 'submitted' CHECK (status IN ('submitted', 'reviewed')),
     grade INTEGER,
     feedback TEXT,
+    file_name VARCHAR(255),
+    file_path VARCHAR(500),
+    file_size INTEGER,
     FOREIGN KEY (assignment_id) REFERENCES assignments(id) ON DELETE CASCADE,
     FOREIGN KEY (student_id) REFERENCES users(id) ON DELETE CASCADE,
     UNIQUE(assignment_id, student_id)
@@ -37,10 +40,11 @@ CREATE TABLE IF NOT EXISTS submissions (
 
 -- Insert demo data
 INSERT INTO users (id, name, email, password, role) VALUES
-    ('t1', 'Arjun Panuily', 'arjun.panuily@cloudtrack.edu', '$2b$10$FMYmMyWVF6R3vecXACXa0.bNOAF/BoowuDYg2NdXqRKFtujrDP0SC', 'teacher'),
-    ('s1', 'Kartik Sharma', 'kartik.sharma@student.edu', '$2b$10$NwAg9ATf/cXwO35B9ADsRuzdTPbKdZzGmeQ4/HQXk.jG00XrHGdP2', 'student'),
-    ('s2', 'Aryan Thapa', 'aryan.thapa@student.edu', '$2b$10$SYlQTFEIaMsksm.hjn66B.e2FK3m80lj5LvYVC.EpfwNn8Zv4v/Iy', 'student'),
-    ('a1', 'Admin User', 'admin@cloudtrack.edu', '$2b$10$XpxsYaLXKvbnOVYmuJcxset86U5oLCnIlx0yW1iraxX5VMeje5hJK', 'admin')
+    ('t1', 'Arjun Panuily', 'arjun.panuily@cloudtrack.edu', '$2b$10$0guUhoREJ2PeKaJMkpxT7egonmlFJwN904jznGMw9KZMbR3/oZyui', 'teacher'),
+    ('s1', 'Kartik Sharma', 'kartik.sharma@student.edu', '$2b$10$fyizIvUJf4kd2bLFhVjwouCU3Dfkrs.wma0.C6RDJWXWPuWg/SHsi', 'student'),
+    ('s2', 'Aryan Thapa', 'aryan.thapa@student.edu', '$2b$10$fyizIvUJf4kd2bLFhVjwouCU3Dfkrs.wma0.C6RDJWXWPuWg/SHsi', 'student'),
+    ('a1', 'Admin User', 'admin@cloudtrack.edu', '$2b$10$Bq76gOl3kvmKXXhmHPu2F.OLB/xHN9qLkKuzCWOBX0Qb0QmtzFXp6', 'admin'),
+    ('t2', 'New Teacher', 'teacher@cloudtrack.edu', '$2b$10$0guUhoREJ2PeKaJMkpxT7egonmlFJwN904jznGMw9KZMbR3/oZyui', 'teacher')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO assignments (id, title, description, due_date, teacher_id) VALUES

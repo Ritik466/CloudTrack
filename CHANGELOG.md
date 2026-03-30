@@ -2,35 +2,35 @@
 
 ## Version 1.0.0 - March 2026
 
-### What I built
-- Basic assignment management system
-- Student login and submission
-- Teacher assignment creation
-- File upload functionality
-- Grading and feedback system
-- Admin overview
-- User authentication with passwords
-- Database integration with PostgreSQL
+### What I Built
+- Assignment management system
+- Student login and assignment submission
+- Teacher assignment creation and grading
+- Admin overview dashboard
+- PostgreSQL-backed data storage
+- File upload support
+- AWS-ready deployment support
 
-### Some issues I know about
-- File size is limited to 10MB (might need to increase later)
-- Mobile could be better
-- Error messages could be more helpful
-- No email notifications yet
-
-### Technical details
-- React for the frontend
-- Node.js + Express for the backend
-- PostgreSQL for the database
+### Technical Details
+- React frontend
+- Node.js and Express backend
+- PostgreSQL database
 - bcrypt for password hashing
-- Multer for file uploads
+- Multer for uploads
+- Docker and Docker Compose for containerized deployment
+- Terraform for AWS infrastructure
+- Amazon EC2, Amazon ECR, Amazon VPC, and optional Amazon S3 support
 
----
+### Known Limitations
+- File size is limited to 10MB
+- Mobile UI can be improved
+- Error handling can be clearer in some flows
+- Cloud storage depends on environment configuration
 
-## Future ideas
-- Maybe add email notifications
-- Could use cloud storage instead of local files
+## Future Ideas
+- Add email notifications
+- Improve mobile responsiveness
 - Add more assignment types
-- Better mobile support
+- Expand cloud deployment support further
 
-*That's pretty much it for now*
+*Last updated: March 2026*

@@ -1,0 +1,25 @@
+services:
+  backend:
+    image: ${BACKEND_IMAGE}
+    container_name: cloudtrack_backend
+    restart: unless-stopped
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT:-5432}
+      DB_NAME: ${DB_NAME:-simple_demo}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      PORT: 3001
+      AWS_REGION: ${AWS_REGION:-ap-south-1}
+      S3_BUCKET: ${S3_BUCKET:-}
+    ports:
+      - "3001:3001"
+
+  frontend:
+    image: ${FRONTEND_IMAGE}
+    container_name: cloudtrack_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"

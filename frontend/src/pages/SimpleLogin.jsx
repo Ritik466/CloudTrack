@@ -29,7 +29,10 @@ export default function SimpleLogin() {
 
   const quick = async (demoEmail, demoPassword) => {
     const user = await store.login(demoEmail, demoPassword)
-    if (!user) return
+    if (!user) {
+      alert('Demo login failed. Try manual login.')
+      return
+    }
     navigate(`/${user.role}`)
   }
 

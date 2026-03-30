@@ -1,15 +1,18 @@
 const { Pool } = require('pg');
-require('dotenv').config();
+require('dotenv').config({ path: require('path').join(__dirname, '.env') });
+
+if (typeof process.env.DB_PASSWORD !== 'string' || process.env.DB_PASSWORD.length === 0) {
+  throw new Error('DB_PASSWORD is missing. Add it to backend/.env');
+}
 
 const pool = new Pool({
   host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT || 5432,
+  port: Number(process.env.DB_PORT) || 5433,
   database: process.env.DB_NAME || 'simple_demo',
   user: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASSWORD,
 });
 
-// Test database connection
 pool.on('connect', () => {
   console.log('Connected to PostgreSQL database');
 });
